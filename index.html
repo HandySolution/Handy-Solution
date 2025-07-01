@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Handy Solution | Handyman Services</title>
+  
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YLQ11NKRWM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YLQ11NKRWM');
+</script>
+  
+  <meta name="format-detection" content="telephone=no">
+  <style>
+    /* ОБЩИЕ СТИЛИ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+    body {
+      line-height: 1.6;
+      background: #f9f9f9;
+      color: #333;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .header {
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      padding: 0.5rem 0;
+      border-bottom: 0.5px solid rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .logo span {
+      color: #007bff;
+    }
+    .navbar {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .navbar ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .navbar a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .navbar a:hover {
+      color: #007bff;
+    }
+    /* КНОПКА Request Quote Goo Style */
+    .goo-button {
+      margin: 0;
+      padding: 0;
+      border: 2px solid #007bff;
+      outline: none;
+      color: inherit;
+      width: 180px;
+      height: 40px;
+      cursor: pointer;
+      position: relative;
+      border-radius: 50px;
+      background: transparent;
+      overflow: hidden; /* ВАЖНО: теперь эффект внутри овала */
+    }
+    .goo-button-text {
+      color: #007bff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 2;
+      transition: color 1s ease-in-out;
+    }
+    .goo-button:hover .goo-button-text {
+      color: white;
+    }
+    .goo-button::before, .goo-button::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background-color: #007bff;
+      z-index: 1;
+    }
+    .goo-button::before { left: -30%; }
+    .goo-button::after { left: 125%; }
+    .goo-button:hover::before {
+      animation: collisionLeft 1s both alternate;
+    }
+    .goo-button:hover::after {
+      animation: collisionRight 1s both alternate;
+    }
+    @keyframes collisionLeft {
+      0% { left: -30%; width: 20px; height: 20px; }
+      50% { left: 50%; width: 40px; height: 40px; }
+      100% { left: 50%; width: 300px; height: 300px; }
+    }
+    @keyframes collisionRight {
+      0% { left: 125%; width: 20px; height: 20px; }
+      50% { left: 50%; width: 40px; height: 40px; }
+      100% { left: 50%; width: 300px; height: 300px; }
+    }
+    /* ГАМБУРГЕР */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 20px;
+      height: 16px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background-color: #000;
+      border-radius: 2px;
+    }
+    /* Оверлей при открытии меню */
+    .overlay-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      display: none;
+      z-index: 1500;
+    }
+    .overlay-background.show {
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .navbar {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .goo-button {
+        display: none;
+      }
+      .logo {
+        font-size: 1.2rem;
+      }
+    }
+    /* БОКОВОЕ МЕНЮ */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 280px;
+      height: 100vh;
+      background-color: #fff;
+      box-shadow: -2px 0 10px rgba(0,0,0,0);
+      transition: right 0.3s ease;
+      z-index: 2000;
+      padding: 2rem 1.5rem;
+    }
+    .side-menu.open {
+      right: 0;
+    }
+    .side-menu .close-btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border: none;
+      cursor: pointer;
+    }
+    .side-menu ul {
+      list-style: none;
+      margin-top: 3rem;
+      padding: 0;
+    }
+    .side-menu ul li {
+      margin-bottom: 1.5rem;
+    }
+    .side-menu ul li a {
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+      display: block;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid #eee;
+      transition: color 0.3s ease;
+    }
+    .side-menu ul li a:hover {
+      color: #007bff;
+    }
+    /* HERO СЕКЦИЯ */
+    .hero {
+      position: relative;
+      background: url('https://i.ibb.co/0jDH9c89/chandler-cruttenden-1c-L5-E2-Bow8w-unsplash-1.jpg') no-repeat center top 20%/cover;
+      color: white;
+      text-align: center;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero .overlay {
+      background-color: rgba(0, 0, 0, 0);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .hero .container {
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+    .hero p {
+      margin: 1rem 0;
+    }
+    .btn-primary {
+      padding: 0.75rem 1.5rem;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    /* ОСТАЛЬНЫЕ СЕКЦИИ */
+    .about, .services, .contact {
+      padding: 3rem 0;
+    }
+    .about h2, .services h2, .contact h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .service {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0);
+      text-align: center;
+    }
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    .contact input, .contact textarea {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    .contact button {
+      padding: 0.75rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
+    .about-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-images {
+  position: relative;
+  flex: 1 1 300px;
+  max-width: 400px;
+}
+
+.about-images img {
+  width: 100%;
+  border-radius: 25px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0);
+}
+
+.about-images .secondary-img {
+  position: absolute;
+  bottom: -30px;
+  left: 30px;
+  width: 120%;
+  border-radius: 25px;
+}
+
+.about-text {
+  flex: 1 1 300px;
+}
+
+.about-text h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #111;
+}
+
+.about-text p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #444;
+}
+    
+.about-intro {
+  margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 60px;
+  margin-bottom: -5px;
+}
+
+.fade-in-title {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #333;
+  margin: 0;
+}
+
+.fade-in-title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .about-intro {
+    justify-content: center;
+    height: 50px;
+    margin-bottom: -15px;
+  }
+  .fade-in-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-flex {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-images {
+    position: relative;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 -5px; /* немного отступов по бокам */
+  }
+
+  .about-images img.main-img {
+  width: 105%;
+}
+  
+  .about-images .secondary-img {
+    position: absolute;
+    bottom: 30px;
+    left: 50px;
+    width: 40%;
+    transform: none;
+  }
+}
+
+    #parallaxImg {
+  transition: transform 0.1s ease-out;
+}
+
+/* Немного сдвиг вправо на больших экранах */
+@media (min-width: 769px) {
+  .about-images {
+    padding-left: 50px;
+  }
+
+  .about-images img.main-img {
+    width: 130%;
+  }
+
+  .about-images .secondary-img {
+    bottom: 70px;
+    left: 30px;
+    width: 50%;
+  }
+}
+
+/* Fade-in эффект */
+.about-images img {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.about-images img.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+    
+.about-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.about-text {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.about-footer-img {
+  display: block;
+  margin-top: 25px;
+  width: 150px;
+}
+
+.about-footer-text {
+  font-weight: bold;
+  text-align: left;
+  color: #444;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.about-heading {
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 1rem;
+  color: #111;
+  font-size: 39px !important;
+}
+
+.about-labels {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.label-blue {
+  background-color: #1f4bf5;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 15px !important;
+  font-weight: bold;
+}
+
+.label-light {
+  font-size: 16px !important;
+  font-weight: 600;
+  color: #1f4bf5;
+}
+
+@media (max-width: 768px) {
+  .about-text {
+    align-items: flex-start;
+    text-align: left;
+    margin-top: 20px;
+  }
+
+  .about-labels {
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+}
+    .about-heading {
+  text-align: left !important;
+}
+    
+@media (min-width: 769px) {
+  .about-flex {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .about-images {
+    flex: 1 1 75%;
+  }
+
+  .about-text {
+    flex: 1 1 55%;
+    padding-left: 150px;
+    max-width: 769px;
+    padding-right: 50px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .about-flex {
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+  }
+
+  .about-images {
+    width: auto;
+    max-width: 400px;
+    margin: 0 auto 0 auto;
+    padding-right: 60px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .about-images img.main-img {
+    display: block;
+    margin: 0 auto;
+    width: 160%;
+  }
+
+  .about-images .secondary-img {
+    position: absolute;
+    bottom: 70px;
+    left: -60px;
+    width: 50%;
+  }
+
+  .about-text {
+    width: 90%;
+    max-width: 840px;
+    margin: 0 auto;
+    text-align: left;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.about-text .about-heading {
+    font-size: 39px;
+    text-align: left;
+    margin: 0;                /* Убираем внешние отступы, если не нужно */
+}
+
+.about-labels {
+    justify-content: flex-start;
+    margin: 0;                /* Убираем лишние отступы */
+}
+}
+  .about-footer-content {
+  display: flex; /* или flex, если блоковая структура нужна */
+  align-items: center;
+  gap: 20px; /* расстояние между фото и текстом */
+  margin-top: 10px;
+}
+
+.about-footer-img {
+  width: 150px;
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+
+.about-footer-text {
+  font-weight: bold;
+  color: #000;
+  font-size: 18px;
+  margin: 0px;
+  text-align: left;
+  max-width: 400px;
+  line-height: 1.4;
+}
+
+/* Для экранов до 1100px — текст под фото */
+@media (max-width: 769px) {
+  .about-footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+    align-items: left;
+    padding-left: 0px;
+    margin-top: 0px; 
+  }
+
+  .about-footer-text {
+    margin-top: 0px;
+    text-align: left;
+    padding-right: 20px;
+  }
+}
+    
+.phone-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 20px 30px;
+    margin: 20px auto 0 auto; /* Центрируем по ширине */
+    gap: 20px;
+    flex-wrap: nowrap;
+    max-width: 1200px; /* Максимальная ширина, как у текста */
+    width: 90%; /* Адаптация при сужении */
+}
+
+.phone-icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+.call-button {
+    background-color: #1f4bf5;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.call-button:hover {
+    background-color: #1740c2;
+}
+
+/* Маленькие экраны (до 768px) */
+@media (max-width: 768px) {
+    .phone-wrapper {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .phone-card {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        width: 100%;
+        margin: 20px auto 0 auto;
+    }
+
+    .call-button {
+        margin-top: 20px;
+    }
+}
+
+/* Средние экраны (769px - 1100px) — ручная настройка */
+@media (min-width: 769px) and (max-width: 1100px) {
+    .phone-wrapper {
+        padding-left: 85px;  /* Настраиваешь здесь отступ слева */
+        padding-right: 85px; /* И здесь справа */
+    }
+}
+
+/* Большие экраны (от 1101px) */
+@media (min-width: 1101px) {
+    .phone-wrapper {
+        padding-left: 618px; /* Настроить отступ слева для больших экранов */
+        padding-right: 80px; /* Настроить отступ справа для больших экранов */
+    }
+
+    .phone-card {
+        max-width: 1200px;
+        margin: 20px auto 0 auto;
+    }
+}
+
+@media (min-width: 769px) {
+  .phone-icon {
+    position: relative;
+    top: 5px; /* или другое значение — регулируешь сам */
+  }
+}
+
+.phone-content {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 30px; /* расстояние между иконкой и номером */
+}
+
+.phone-number {
+  font-size: 22px;
+  color: #000; /* чёрный текст */
+  font-weight: 500;
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .phone-content {
+    flex-direction: row;
+    gap: 45px;
+    text-align: center;
+  }
+}
+
+/* Для маленьких экранов: иконка + номер + кнопка в одну линию */
+@media (max-width: 768px) {
+  .phone-card {
+    flex-direction: row;  /* теперь всё в ряд! */
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 20px; /* расстояние между элементами */
+    width: 100%;
+    margin: 20px auto 0 auto;
+    text-align: left;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .phone-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-right: 30px;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .phone-icon {
+    position: relative;
+    top: 5px; /* !!! РЕГУЛИРУЙ ВЫСОТУ ИКОНКИ ЗДЕСЬ !!! */
+  }
+
+  .phone-icon svg {
+    width: 24px; /* РЕГУЛИРУЙ размер трубки здесь */
+    height: 24px;
+  }
+
+  .phone-number {
+    font-size: 18px; /* РЕГУЛИРУЙ размер текста номера здесь */
+    flex-shrink: 0;
+  }
+
+  .call-button {
+    flex-shrink: 1;
+    margin: 0;
+    padding: 12px 24px; /* РЕГУЛИРУЙ размер кнопки */
+    height: auto;
+    white-space: nowrap; /* не переносить текст */
+  }
+}
+    
+.about-divider-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 240px;
+  object-fit: cover; /* Поддерживает красивую обрезку если нужно */
+}
+    
+@media (max-width: 768px) {
+  .about-divider-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 140px;
+  object-fit: cover;
+}
+    }
+  
+.about-divider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.divider-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  background: 
+    linear-gradient(to bottom, rgba(100, 100, 100, 0.45), rgba(255, 255, 255, 0) 90%),
+    rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px); /* Ключевой эффект размытости */
+  -webkit-backdrop-filter: blur(20px); /* Для Safari */
+  outline: 1px solid rgba(255, 255, 255, 0.3); /* Тонкая светлая рамка */
+  padding: 20px 20px;
+  text-align: center;
+  height: 200px;
+  top: -100px;
+  max-width: 90%;
+  max-height: 90%;
+  min-height: 40%;
+  bottom: 120px;
+  z-index: 2;
+}
+
+.divider-card p {
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+    
+/* === Большие экраны (от 1101px) === */
+@media (min-width: 1101px) {
+  .divider-card {
+    padding-top: 65px;
+    padding-bottom: 55px;
+    padding-left: 100px;   /* Отрегулируй по вкусу */
+    padding-right: 100px; 
+    font-size: 45px;
+    font-weight: bold;
+    color: #fff;
+    text-align: left;
+  }
+}
+
+/* === Средние экраны (от 769px до 1100px) === */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .divider-card {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 80px;   /* Отрегулируй по вкусу */
+    padding-right: 80px;
+    font-size: 38px;
+    font-weight: bold;
+    color: #fff;
+    text-align: left;
+  }
+}
+
+/* === Маленькие экраны (до 768px) === */
+@media (max-width: 768px) {
+  .divider-card {
+    padding-top: 25px;
+    padding-bottom: 30px;
+    padding-left: 35px;   /* Отрегулируй по вкусу */
+    padding-right: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff;
+    text-align: left;
+  }
+}
+
+/* === Кнопка со стилем Liquid Glass === */
+.call-blur-button {
+  position: absolute;
+  display: inline-block;
+  padding: 14px 40px;
+  border-radius: 35px;
+  background: rgba(255, 255, 255, 0.2); /* полупрозрачный слой */
+  backdrop-filter: blur(20px); /* эффект стекла */
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3); /* тонкая рамка */
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s, box-shadow 0.3s;
+  white-space: nowrap;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 80px; /* регулируй как нужно для десктопа */
+}
+
+/* === Ховер эффект === */
+.call-blur-button:hover {
+  background-color: #0071E3;
+  color: white;
+}
+
+/* === Большие экраны === */
+@media (min-width: 1101px) {
+  .call-blur-button {
+    bottom: 80px;       /* регулируй от низа экрана */
+    padding: 15px 40px; /* размер кнопки */
+    font-size: 21px;    /* размер текста */
+  }
+}
+
+/* === Средние экраны === */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .call-blur-button {
+    bottom: 60px;       /* регулируй от низа экрана */
+    padding: 16px 45px; /* размер кнопки */
+    font-size: 20px;
+  }
+}
+
+/* === Маленькие экраны === */
+@media (max-width: 768px) {
+  .call-blur-button {
+    bottom: 40px;       /* регулируй от низа экрана */
+    padding: 12px 30px; /* размер кнопки */
+    font-size: 16px;
+  }
+}
+    
+.service-slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 5vw; /* Обязательно для правильного scroll-snap */
+  /* Ключ: ширина на всю вьюпортную ширину */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+
+  padding: 20px 0;
+}
+
+.service-slide {
+  flex: 0 0 auto;
+  width: 300px;
+  scroll-snap-align: start;
+  background: #fff;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.service-slide img {
+  width: 100%;
+  display: block;
+  border-radius: 10px 10px 0 0;
+  object-fit: cover;
+}
+
+.spacer-left {
+  flex: 0 0 40px;
+  height: 1px;
+  pointer-events: none;
+  scroll-snap-align: none;
+}
+
+.spacer-right {
+  flex: 0 0 40px;
+  height: 1px;
+  pointer-events: none;
+  scroll-snap-align: none;
+}
+
+.service-slide p {
+  padding: 15px;
+  font-size: 1rem;
+  color: #444;
+}
+    
+@media (max-width: 768px) {
+  .spacer-left {
+    flex: 0 0 20px;
+  }
+
+  .spacer-right {
+    flex: 0 0 4px;
+  }
+}
+
+.reviews {
+  padding: 3rem 0;
+}
+
+.reviews h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.review-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  scroll-padding-left: 5vw;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 20px 0;
+}
+
+.review-slide {
+  flex: 0 0 auto;
+  width: 300px;
+  scroll-snap-align: start;
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-size: 1rem;
+}
+
+.review-slide strong {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stars {
+  color: #FFD700;
+  margin-bottom: 10px;
+}
+
+.review-text {
+  overflow: hidden;
+  max-height: 7.5em; /* ~5 строк */
+  line-height: 1.5em;
+  transition: max-height 0.3s ease;
+  position: relative;
+}
+
+.review-text.expanded {
+  max-height: 1000px; /* развёрнутый текст */
+}
+
+.toggle-review-btn {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0;
+}
+
+.review-slide strong,
+.review-slide .stars,
+.review-slide p,
+.review-slide .toggle-review-btn {
+  display: block;
+  margin-bottom: 2px; /* единое расстояние между всеми блоками */
+}
+}
+
+.call-number-blur-button {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100px; /* регулируй отступ от низа */
+  padding: 16px 32px;
+  font-size: 18px;
+  border-radius: 50px;
+  background-color: rgba(0, 113, 227, 0.15) !important;
+  backdrop-filter: blur(8px);
+  color: #0071E3;
+  text-decoration: none;
+  font-weight: 600;
+  border: 2px solid #0071E3;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.hero-container {
+  position: relative;
+}
+
+.overlay .container {
+  position: relative;
+}
+
+/* ХОВЕР */
+.call-number-blur-button:hover {
+  background-color: #0071E3;
+  color: white;
+}
+
+/* 📱 МАЛЕНЬКИЕ ЭКРАНЫ */
+@media (max-width: 480px) {
+  .call-number-blur-button {
+    font-size: 14px;
+    padding: 0 20px;
+    height: 44px;
+    line-height: 44px;
+    bottom: -50px;
+  }
+}
+
+/* 📱 СРЕДНИЕ ЭКРАНЫ */
+@media (min-width: 481px) and (max-width: 991px) {
+  .call-number-blur-button {
+    font-size: 16px;
+    padding: 0 28px;
+    height: 46px;
+    line-height: 46px;
+    bottom: 80px;
+  }
+}
+
+/* 💻 БОЛЬШИЕ ЭКРАНЫ */
+@media (min-width: 1100px) {
+  .call-number-blur-button {
+    font-size: 18px;
+    padding: 0 32px;
+    height: 48px;
+    line-height: 48px;
+    bottom: -90px;
+  }
+}
+
+    @media (max-width: 389px) {
+  .call-button {
+    padding: 10px 22px;   /* делаем кнопку меньше */
+    font-size: 13px;     /* уменьшаем текст */
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .phone-number {
+    font-size: 16px;     /* чуть меньше текст номера */
+  }
+
+  .phone-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <div class="logo">Handy<span>Solution</span></div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <button class="goo-button" onclick="location.href='#contact'">
+      <p class="goo-button-text">Request Quote →</p>
+    </button>
+  </div>
+</header>
+
+<!-- OVERLAY -->
+<div class="overlay-background" id="overlay"></div>
+
+<!-- SIDE MENU -->
+<div class="side-menu" id="sideMenu">
+  <button class="close-btn" id="closeMenu">&times;</button>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact Us</a></li>
+  </ul>
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="overlay">
+    <div class="container" style="position: relative;">
+      <h1>Reliable Handyman Services</h1>
+      <p>Every job done with care and precision</p>
+
+      <!-- СЮДА кнопка, ВНУТРЬ блока с relative 
+      <a href="tel:+12792084340" class="call-number-blur-button">Call: +1 (279) 208-4340</a>
+    </div> -->
+  </div>
+</section>
+
+  
+<!-- ABOUT SECTION -->
+<section id="about" class="about">
+  <div class="container">
+    <div class="about-intro">
+      <h2 class="fade-in-title">About Us</h2>
+    </div>
+  </div>
+
+  <div class="container about-flex">
+    <div class="about-images">
+      <img src="https://i.ibb.co/JRMnWCWL/1000185581.jpg" alt="Main handyman photo" class="main-img">
+      <img src="https://i.ibb.co/G4nBGBsP/V6-A8267-2.jpg" alt="Secondary handyman photo" class="secondary-img parallax-img">
+    </div>
+
+    <div class="about-text">
+      <div class="about-labels">
+        <span class="label-blue">YOUR TRUSTED HANDYMAN</span>
+        <span class="label-light">SERVICES</span>
+      </div>
+      <h2 class="about-heading">Handy Solution - affordable and quality services for your home!</h2>
+      <p>We're your trusted team, providing handyman services with attention to detail, precision, and genuine customer care. Every project is an opportunity for us to earn your trust. We offer clear pricing, honest communication, and customized solutions for every project.</p>
+      <p>Choose Handy Solution for reliable and exceptional service every time.</p>
+
+      <!-- Новый БЛОК для фото и текста в строку -->
+      <div class="about-footer-content">
+        <img src="https://i.ibb.co/3mf7F2Ph/1000185879.jpg" alt="Additional handyman photo" class="about-footer-img">
+        <p class="about-footer-text">Reach out to us, and let's solve your household issues together!</p>
+      </div>
+    </div>
+  </div>
+  <div class="phone-wrapper">
+    <div class="phone-card">
+   <div class="phone-content">
+  <div class="phone-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" width="40" height="40">
+      <path d="M23 17.11a5.92 5.92 0 0 0-4.63-3.95 1.5 1.5 0 0 0-1.51.66l-1.26 1.81a.53.53 0 0 1-.61.2 13.25 13.25 0 0 1-3.6-2.14 13 13 0 0 1-2.94-3.52.5.5 0 0 1 .17-.69l1.63-1.09a1.52 1.52 0 0 0 .61-1.71 10.13 10.13 0 0 0-1.38-2.89 10.36 10.36 0 0 0-2.2-2.33A1.53 1.53 0 0 0 6 1.19a7.31 7.31 0 0 0-1.13.43A7.64 7.64 0 0 0 1.2 6.1a1.48 1.48 0 0 0 0 .93 24.63 24.63 0 0 0 6.53 10.41A24.76 24.76 0 0 0 17.12 23a1.41 1.41 0 0 0 .45.07 1.59 1.59 0 0 0 .48-.07 7.64 7.64 0 0 0 4.47-3.66A6.21 6.21 0 0 0 23 18a1.46 1.46 0 0 0 0-.89zm-1.33 1.74A6.61 6.61 0 0 1 17.73 22a.54.54 0 0 1-.31 0 23.61 23.61 0 0 1-9-5.29 23.74 23.74 0 0 1-6.27-10 .47.47 0 0 1 0-.31 6.59 6.59 0 0 1 3.14-3.88 5 5 0 0 1 1-.36h.1a.5.5 0 0 1 .32.11 9.4 9.4 0 0 1 2 2.09A9.07 9.07 0 0 1 9.9 7a.52.52 0 0 1-.21.6L8.06 8.64a1.54 1.54 0 0 0-.47 2 14.09 14.09 0 0 0 7 6.09 1.51 1.51 0 0 0 1.81-.58l1.21-1.81a.51.51 0 0 1 .51-.23A4.94 4.94 0 0 1 22 17.44a.58.58 0 0 1 0 .29 5.35 5.35 0 0 1-.38 1.12z" style="fill:#1f4bf5"/>
+    </svg>
+  </div>
+<div class="phone-number">+1 (279) 208-4340</div>
+</div>
+      
+    <a href="tel:+1 (279) 208-4340" class="call-button">CLICK TO CALL</a>
+  </div>
+ </div>
+</section>
+
+  <!-- Разделитель фото -->
+<div class="about-divider-wrapper">
+  <img src="https://i.ibb.co/BVRBvNBZ/V6-A8245-2.jpg" alt="Divider Photo" class="about-divider-img">
+  <div class="divider-card">
+    <!-- Здесь твой контент в табличке -->
+    <p>Are there tasks that need to be done around the house?</p>
+  </div>
+    <!-- Кнопка позвонить на фото -->
+<div class="call-blur-button-wrapper">
+  <a href="tel:+12792084340" class="call-blur-button">Let’s Work With Us</a>
+</div>
+</div>
+
+<!-- SERVICES SECTION -->
+<section id="services" class="services">
+  <div class="container">
+    <h2>Our Services</h2>
+      <div class="service-slider">
+        <div class="spacer-left"></div>
+
+  <div class="service-slide first-slide">
+    <img src="https://i.ibb.co/fVbQjy4Y/V6A8242.jpg" alt="Service 1">
+    <p>Quick fixes and long-term solutions for common household issues.</p>
+  </div>
+  <div class="service-slide">
+    <img src="https://i.ibb.co/q3fjfS7d/20250405-173258.jpg" alt="Service 2">
+    <p>Electrical repairs and installations done safely and efficiently.</p>
+  </div>
+  <div class="service-slide">
+    <img src="https://i.ibb.co/9kmRpGqw/IMG-0774.jpg" alt="Service 3">
+    <p>Expert setup and installation for all major home appliances.</p>
+  </div>
+  <div class="service-slide">
+    <img src="https://i.ibb.co/tk6J7Rs/4-U9lc-Ad9-2.jpg" alt="Service 4">
+    <p>Fresh coats and patchwork that bring your walls back to life.</p>
+  </div>
+  <div class="service-slide">
+    <img src="https://i.ibb.co/5XPJXTGx/steven-ungermann-Ic-Np-BCQS3fk-unsplash-2.jpg" alt="Service 5">
+    <p>Quality plumbing solutions for all household needs.</p>
+  </div>
+  <div class="service-slide">
+    <img src="https://i.ibb.co/1YpDvyPB/V6A8235.jpg" alt="Service 6">
+    <p>General maintenance to keep your home in top condition.</p>
+  </div>
+  <div class="service-slide last-slide">
+    <img src="https://i.ibb.co/tMF95dff/IMG-0781.jpg" alt="Service 7">
+    <p>Leave the tools to us for safe and sturdy furniture setup.</p>
+  </div>
+<div class="spacer-right"></div>
+</div>
+</section>
+  
+<!-- REVIEWS SECTION -->
+<section id="reviews" class="reviews">
+  <div class="container">
+    <h2>Reviews</h2>
+    <div class="review-slider">
+      <div class="spacer-right"></div>
+      <div class="review-slide">
+        <strong>John A.</strong>
+        <div class="stars">★★★★★</div>
+        <p>Worked safely and efficiently.<br>
+        Had all the proper equipment to get the done without delay.<br>
+        Kept the work areas clean.</p>
+      </div>
+
+      <div class="review-slide">
+        <strong>Frederic H.</strong>
+        <div class="stars">★★★★★</div>
+        <p>He was very professional and he did impeccable work in assembling my china cabinet and coffee table.</p>
+      </div>
+
+      <div class="review-slide">
+        <strong>Albert G.</strong>
+        <div class="stars">★★★★★</div>
+        <p>Quick reply. Came out the next day.<br>
+        Evaluated what needed to be done, went right out to get parts, and did the work right away. Very pleased with the person and work ethic.</p>
+      </div>
+
+      <div class="review-slide">
+        <strong>Diane B.</strong>
+        <div class="stars">★★★★★</div>
+        <p>He was great. I have no complaints. He did a wonderful job. He was very professional, very polite, & he cleaned up after himself.</p>
+      </div>
+
+      <div class="review-slide">
+        <strong>Paper R.</strong>
+        <div class="stars">★★★★★</div>
+        <p>Shortly after the job was posted, I was contacted, and the job was done correctly and on the same day. Thank you.</p>
+      </div>
+
+      <div class="review-slide">
+  <strong>Michelle T.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Handy solution did a very good job. They were respectful and professional.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Conchita D.</strong>
+  <div class="stars">★★★★★</div>
+  <p>He came on time and did his job well and fast. He even made sure the working area was left tidy and clean. I would be hiring him again for future projects in my home.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Pankaj M.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Showed up on time and did quality work.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Guy M.</strong>
+  <div class="stars">★★★★★</div>
+  <p>The young man was prompt, knowledgeable and courteous.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Rita B.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Courteous, respectful and efficient. Good work ethics. Recommend him to anyone needing any assistance.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Korina D.</strong>
+  <div class="stars">★★★★★</div>
+  <p>We are beyond thankful for the amazing work that was done today. 2 workers prior to Handy Solution bailed on this job. But, this amazing team did not stop. Several hours of work. And the results speak for themselves. They put together a huge dog kennel that required a complete assembly. We are beyond impressed. If we could give 10 stars we would! Highly recommend, not to mention great personalities, very professional and they even took all the trash and cardboard.</p>
+</div>
+      
+<div class="review-slide">
+  <strong>Hazel G.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Quick response time, came prepared with proper tools, courteous, felt comfortable leaving unsupervised, respectful, satisfied with job completed.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Kathy B.</strong>
+  <div class="stars">★★★★★</div>
+  <p>He was very professional and very quick. Very nice man with great work ethic!</p>
+</div>
+
+<div class="review-slide">
+  <strong>Lorena O.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Alisher did a great job putting together the tv stand. I definitely recommend him and would use his services for future projects.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Dorene H.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Excellently, knowledgeable, professional.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Kathleen H.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Alisher was awesome! He showed up on time and got right to work. He was very knowledgeable and answered all of my questions. He showed me where some small damage was on my project. I would highly recommend him and will ask for him again when I need more furniture assembled.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Tracy H.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Very well mannered! Excellent work! Attention to detail.</p>
+</div>
+
+      <div class="review-slide">
+  <strong>Karen K.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Superior worker. Prompt, fast, smart, polite, kind, friendly. Assembled lamps, canon printer, electric stand up desk, cleared packing materials. Will hire again. Highly recommend.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Andrea R.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Arrived timely and finished assembly quickly! Great work, nice guy.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Pablo E.</strong>
+  <div class="stars">★★★★★</div>
+  <p>Alisher did an excellent job putting together a bunk bed with a desk on the lower part for my son. He also moved some decorative walls items that ended up on the way. He was very professional and a very polite and kind young man.</p>
+</div>
+
+<div class="review-slide">
+  <strong>Veronique C.</strong>
+  <div class="stars">★★★★★</div>
+  <p>He did such an amazing job that we asked him on the spot if he could do a few more things. So he repaired several cabinets, modified a cabinet, and put together a piece of furniture. He is extremely professional. I will most certainly be hiring Alisher again!!!!</p>
+</div>
+
+<div class="review-slide">
+  <strong>Dr Steve S.</strong>
+  <div class="stars">★★★★★</div>
+  <p>HIRE HIM!!! Skilled handyman, efficient, gets it right. Gets more work done per hour than others. Reads instructions quickly when assembling furniture. Removed old damaged furniture in truck. Set up electronics, drilled and mounted hooks, mirrors, art. I have employed dozens of handymen over 76 yrs. He is best.</p>
+</div>
+      <div class="spacer-right"></div>
+</div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="contact">
+  <div class="container">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" name="phone" required />
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 Handy Solution. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+const hamburger = document.getElementById('hamburger');
+const sideMenu = document.getElementById('sideMenu');
+const closeMenu = document.getElementById('closeMenu');
+const sideLinks = sideMenu.querySelectorAll('a');
+const overlay = document.getElementById('overlay');
+
+hamburger.addEventListener('click', () => {
+  sideMenu.classList.add('open');
+  overlay.classList.add('show');
+});
+
+closeMenu.addEventListener('click', () => {
+  sideMenu.classList.remove('open');
+  overlay.classList.remove('show');
+});
+
+sideLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    sideMenu.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+});
+
+overlay.addEventListener('click', () => {
+  sideMenu.classList.remove('open');
+  overlay.classList.remove('show');
+});
+</script>
+
+<!-- SVG GOO FILTER -->
+<svg style="position:absolute;width:0;height:0;">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+      <feColorMatrix in="blur" mode="matrix" 
+        values="1 0 0 0 0  
+                0 1 0 0 0  
+                0 0 1 0 0  
+                0 0 0 60 -15" result="goo" />
+      <feBlend in="SourceGraphic" in2="goo" />
+    </filter>
+  </defs>
+</svg>
+  
+<script>
+  window.addEventListener('scroll', () => {
+    const scroll = window.scrollY;
+    const img = document.querySelector('.parallax-img');
+    if (img) {
+      const shift = Math.min(scroll * 0.1, 130);
+      img.style.transform = `translateX(-${shift}px)`;
+    }
+  });
+</script>
+  
+<script>
+  const fadeImages = document.querySelectorAll('.about-images img');
+
+  const onScrollFadeIn = () => {
+    const triggerBottom = window.innerHeight * 0.9;
+
+    fadeImages.forEach(img => {
+      const imgTop = img.getBoundingClientRect().top;
+
+      // Добавляем класс один раз
+      if (imgTop < triggerBottom && !img.classList.contains('visible')) {
+        img.classList.add('visible');
+      }
+    });
+  };
+
+  window.addEventListener('scroll', onScrollFadeIn);
+  window.addEventListener('load', onScrollFadeIn);
+</script>
+
+  <script>
+  const fadeTitle = document.querySelector('.fade-in-title');
+  const aboutImages = document.querySelector('.about-images');
+
+  function fadeInAboutTitle() {
+    if (!fadeTitle || !aboutImages) return;
+
+    const rect = aboutImages.getBoundingClientRect();
+    const triggerPoint = window.innerHeight * 0.8;
+
+    if (rect.top < triggerPoint && !fadeTitle.classList.contains('visible')) {
+      fadeTitle.classList.add('visible');
+    }
+  }
+
+  window.addEventListener('scroll', fadeInAboutTitle);
+  window.addEventListener('load', fadeInAboutTitle);
+</script>
+  
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const slides = document.querySelectorAll('.review-slide');
+  const dotsContainer = document.querySelector('.slider-dots');
+
+  slides.forEach((_, index) => {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    dot.dataset.index = index;
+    dotsContainer.appendChild(dot);
+  });
+
+  const updateDots = (activeIndex) => {
+    const dots = dotsContainer.querySelectorAll('.dot');
+    dots.forEach((dot, index) => {
+      dot.className = 'dot'; // сброс
+
+      const distance = Math.abs(index - activeIndex);
+
+      if (distance === 0) {
+        dot.classList.add('active');
+      } else if (distance === 1) {
+        dot.classList.add('small');
+      } else if (distance === 2) {
+        dot.classList.add('tiny');
+      } else {
+        dot.style.visibility = 'hidden'; // опционально: скрыть совсем
+      }
+    });
+  };
+
+  // Инициализация
+  let currentIndex = 0;
+  updateDots(currentIndex);
+
+  // Пример навигации свайпом
+  const track = document.querySelector('.slider-track');
+  document.querySelector('.slider-track').addEventListener('touchstart', handleTouchStart);
+  document.querySelector('.slider-track').addEventListener('touchend', handleTouchEnd);
+
+  let startX = 0;
+  function handleTouchStart(e) {
+    startX = e.changedTouches[0].clientX;
+  }
+
+  function handleTouchEnd(e) {
+    const diffX = e.changedTouches[0].clientX - startX;
+    if (diffX > 50 && currentIndex > 0) {
+      currentIndex--;
+      updateSlider();
+    } else if (diffX < -50 && currentIndex < slides.length - 1) {
+      currentIndex++;
+      updateSlider();
+    }
+  }
+
+  function updateSlider() {
+    const slideWidth = slides[0].offsetWidth;
+    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    updateDots(currentIndex);
+  }
+});
+</script>
+  
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const slides = document.querySelectorAll('.review-slide');
+  let currentlyExpanded = null;
+
+  slides.forEach(slide => {
+    const p = slide.querySelector('p');
+    const text = p.textContent.trim();
+    const lines = Math.ceil(text.length / 40); // приблизительно 90 символов на строку
+
+    if (lines > 5) {
+      // Ограничение высоты
+      p.classList.add('review-text');
+
+      // Кнопка "Show more"
+      const showMoreBtn = document.createElement('button');
+      showMoreBtn.textContent = 'Show more';
+      showMoreBtn.className = 'toggle-review-btn';
+      slide.appendChild(showMoreBtn);
+
+      // Кнопка "Show less"
+      const showLessBtn = document.createElement('button');
+      showLessBtn.textContent = 'Show less';
+      showLessBtn.className = 'toggle-review-btn';
+      showLessBtn.style.display = 'none';
+      slide.appendChild(showLessBtn);
+
+      const collapse = () => {
+        p.classList.remove('expanded');
+        showMoreBtn.style.display = 'inline-block';
+        showLessBtn.style.display = 'none';
+        currentlyExpanded = null;
+      };
+
+      showMoreBtn.addEventListener('click', () => {
+        // Свернуть предыдущий развёрнутый
+        if (currentlyExpanded && currentlyExpanded !== p) {
+          currentlyExpanded.classList.remove('expanded');
+          const parentSlide = currentlyExpanded.closest('.review-slide');
+          const prevShowMore = parentSlide.querySelector('.toggle-review-btn:nth-of-type(1)');
+          const prevShowLess = parentSlide.querySelector('.toggle-review-btn:nth-of-type(2)');
+          prevShowMore.style.display = 'inline-block';
+          prevShowLess.style.display = 'none';
+        }
+
+        // Развернуть текущий
+        p.classList.add('expanded');
+        showMoreBtn.style.display = 'none';
+        showLessBtn.style.display = 'inline-block';
+        currentlyExpanded = p;
+      });
+
+      showLessBtn.addEventListener('click', () => {
+        collapse();
+      });
+
+      // Автоматическое сворачивание при уходе с экрана
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting && p.classList.contains('expanded')) {
+            collapse();
+          }
+        });
+      }, { threshold: 0.01 });
+
+      observer.observe(slide);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
